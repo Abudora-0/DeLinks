@@ -50,52 +50,50 @@ export default function Shorten() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-50 flex items-center justify-center px-6 pt-16">
-
-      {/* Top color bar */}
-      <div className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-violet-600 via-pink-500 to-orange-400 z-[60]" />
-
-      <div className="relative w-full max-w-md">
+    <main className="min-h-screen flex items-center justify-center px-6 pt-24 pb-16">
+      <div className="relative w-full max-w-lg">
 
         {/* Header */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-600 to-pink-500 shadow-lg shadow-violet-200 mb-4">
-            <svg width="26" height="26" viewBox="0 0 20 22" fill="none">
-              <path d="M5 9V6.5a5 5 0 0110 0V9" stroke="white" strokeWidth="2.2" strokeLinecap="round"/>
-              <rect x="2" y="9" width="16" height="12" rx="3" fill="white"/>
-              <circle cx="10" cy="15" r="2" fill="#7c3aed"/>
-              <rect x="9.1" y="16.5" width="1.8" height="2.2" rx="0.9" fill="#7c3aed"/>
-            </svg>
+        <div className="mb-8">
+          <div className="inline-block border-2 border-[#111] bg-[#ffd02f] px-3 py-1 text-[11px] font-black uppercase tracking-[0.15em] shadow-[3px_3px_0_#111] mb-5">
+            ✂ The chopping block
           </div>
-          <h1 className="text-3xl font-extrabold text-slate-900 mb-2">Shorten a URL</h1>
-          <p className="text-slate-500 text-sm">Paste your long link and create a custom short alias.</p>
+          <h1
+            className="text-4xl md:text-5xl uppercase text-[#111] mb-3"
+            style={{ fontFamily: 'var(--font-display), sans-serif' }}
+          >
+            Shorten a URL
+          </h1>
+          <p className="text-[#3d3a33] font-medium text-sm">
+            Paste your long link, pick an alias, chop it down.
+          </p>
         </div>
 
         {/* Card */}
-        <div className="bg-white rounded-2xl p-7 shadow-xl shadow-violet-100 border border-violet-100">
-          <div className="space-y-4">
+        <div className="brut p-7">
+          <div className="space-y-5">
 
             {/* URL input */}
             <div>
-              <label className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">
-                Original URL
+              <label className="block text-[11px] font-black text-[#111] mb-2 uppercase tracking-[0.15em]">
+                01 — Original URL
               </label>
               <input
                 type="url"
                 value={url}
                 onChange={e => setUrl(e.target.value)}
                 placeholder="https://very-long-website-url.com/some/path"
-                className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 placeholder-slate-400 text-sm focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all"
+                className="brut-input"
               />
             </div>
 
             {/* Short alias input */}
             <div>
-              <label className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">
-                Custom Alias
+              <label className="block text-[11px] font-black text-[#111] mb-2 uppercase tracking-[0.15em]">
+                02 — Custom Alias
               </label>
-              <div className="flex rounded-xl overflow-hidden border border-slate-200 focus-within:border-violet-400 focus-within:ring-2 focus-within:ring-violet-100 transition-all">
-                <span className="px-3 py-3 bg-slate-100 text-slate-400 text-xs border-r border-slate-200 flex items-center whitespace-nowrap font-mono">
+              <div className="flex border-[2.5px] border-[#111] bg-white focus-within:shadow-[4px_4px_0_#2323ff] transition-shadow">
+                <span className="px-3 py-3 bg-[#ffd02f] text-[#111] text-xs border-r-[2.5px] border-[#111] flex items-center whitespace-nowrap font-mono font-bold">
                   delinks.app/
                 </span>
                 <input
@@ -103,7 +101,7 @@ export default function Shorten() {
                   value={shorturl}
                   onChange={e => setShorturl(e.target.value)}
                   placeholder="my-link"
-                  className="flex-1 px-3 py-3 bg-white text-slate-800 placeholder-slate-400 text-sm focus:outline-none font-mono"
+                  className="flex-1 px-3 py-3 bg-white text-[#111] placeholder-[#9a968a] text-sm focus:outline-none font-mono min-w-0"
                   onKeyDown={e => e.key === 'Enter' && handleGenerate()}
                 />
               </div>
@@ -111,8 +109,8 @@ export default function Shorten() {
 
             {/* Error */}
             {error && (
-              <div className="px-4 py-3 rounded-xl bg-red-50 border border-red-200 text-red-600 text-sm flex items-center gap-2">
-                <span>⚠️</span> {error}
+              <div className="px-4 py-3 border-2 border-[#111] bg-[#ff90e8] text-[#111] text-sm font-bold flex items-center gap-2">
+                <span>⚠</span> {error}
               </div>
             )}
 
@@ -120,7 +118,7 @@ export default function Shorten() {
             <button
               onClick={handleGenerate}
               disabled={loading}
-              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-violet-600 to-pink-500 text-white font-bold text-sm hover:from-violet-500 hover:to-pink-400 transition-all shadow-lg shadow-violet-200 hover:shadow-violet-300 disabled:opacity-60 disabled:cursor-not-allowed hover:-translate-y-0.5 duration-200"
+              className="brut-btn w-full bg-[#2323ff] text-white text-base py-4"
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
@@ -128,43 +126,43 @@ export default function Shorten() {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
                   </svg>
-                  Generating…
+                  Chopping…
                 </span>
               ) : (
-                '🔗 Generate Short Link'
+                '✂ Chop it'
               )}
             </button>
           </div>
 
           {/* Success result */}
           {generated && (
-            <div className="mt-5 p-4 rounded-xl bg-gradient-to-r from-violet-50 to-pink-50 border border-violet-200">
-              <p className="text-[10px] font-bold text-violet-500 uppercase tracking-widest mb-2">
-                ✅ Your short link is ready!
+            <div className="mt-6 p-4 border-[2.5px] border-[#111] bg-[#a8e6a1] shadow-[4px_4px_0_#111]">
+              <p className="text-[10px] font-black text-[#111] uppercase tracking-[0.2em] mb-2">
+                ✔ Fresh off the block
               </p>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-3">
                 <a
                   href={generated}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 text-violet-700 hover:text-pink-600 font-mono text-sm truncate font-semibold transition-colors"
+                  className="flex-1 text-[#111] hover:text-[#2323ff] font-mono text-sm truncate font-bold underline underline-offset-2 transition-colors"
                 >
                   {generated}
                 </a>
                 <button
                   onClick={copy}
-                  className="flex-shrink-0 px-3 py-1.5 rounded-lg bg-violet-600 hover:bg-pink-500 text-white text-xs font-bold transition-all"
+                  className="brut-btn flex-shrink-0 bg-[#111] text-[#ffd02f] text-xs px-3 py-1.5"
                 >
-                  {copied ? '✓ Copied!' : 'Copy'}
+                  {copied ? '✓ Copied' : 'Copy'}
                 </button>
               </div>
             </div>
           )}
         </div>
 
-        <p className="text-center text-slate-400 text-xs mt-5">
+        <p className="text-center text-[#3d3a33] text-xs font-semibold mt-6">
           By using DeLinks you agree to keep it respectful.{' '}
-          <Link href="/about" className="text-violet-500 hover:text-violet-700 underline transition-colors">
+          <Link href="/about" className="text-[#2323ff] underline underline-offset-2">
             About
           </Link>
         </p>
