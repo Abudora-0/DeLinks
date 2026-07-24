@@ -13,7 +13,7 @@ const grotesk = Space_Grotesk({
 });
 
 export const metadata = {
-  title: "DeLinks — Chop Your Links",
+  title: "DeLinks - Chop Your Links",
   description: "Shorten your URLs instantly. No signup, no hassle. Custom aliases, free forever.",
   icons: { icon: "/favicon.svg" },
 };

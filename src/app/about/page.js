@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'About — DeLinks',
+  title: 'About - DeLinks',
 }
 
 const stack = [
@@ -39,8 +39,8 @@ export default function About() {
             </h2>
             <p className="text-[#3d3a33] text-sm leading-relaxed font-medium">
               DeLinks is a free, no-frills URL shortener. Paste a long URL, choose a short alias,
-              and get a clean shareable link instantly. No account, no email, no credit card — just
-              instant link shortening that works every time.
+              and get a clean shareable link instantly. No account, no email, no credit card.
+              Just instant link shortening that works every time.
             </p>
           </div>
 

@@ -76,7 +76,7 @@ export default function Shorten() {
             {/* URL input */}
             <div>
               <label className="block text-[11px] font-black text-[#111] mb-2 uppercase tracking-[0.15em]">
-                01 — Original URL
+                01 - Original URL
               </label>
               <input
                 type="url"
@@ -90,7 +90,7 @@ export default function Shorten() {
             {/* Short alias input */}
             <div>
               <label className="block text-[11px] font-black text-[#111] mb-2 uppercase tracking-[0.15em]">
-                02 — Custom Alias
+                02 - Custom Alias
               </label>
               <div className="flex border-[2.5px] border-[#111] bg-white focus-within:shadow-[4px_4px_0_#2323ff] transition-shadow">
                 <span className="px-3 py-3 bg-[#ffd02f] text-[#111] text-xs border-r-[2.5px] border-[#111] flex items-center whitespace-nowrap font-mono font-bold">

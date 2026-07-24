@@ -43,7 +43,7 @@ export default function Home() {
       <section className="px-6 pt-20 pb-16 md:pt-28 md:pb-24">
         <div className="max-w-5xl mx-auto">
           <div className="animate-fade-in-up inline-block border-2 border-[#111] bg-white px-4 py-1.5 text-xs font-bold uppercase tracking-[0.15em] shadow-[3px_3px_0_#111] mb-8">
-            ✂ Free URL shortener — no signup needed
+            ✂ Free URL shortener, no signup needed
           </div>
 
           <h1
@@ -140,7 +140,7 @@ export default function Home() {
             Takes one second. Costs nothing. Requires nobody&apos;s email.
           </p>
           <Link href="/shorten" className="brut-btn bg-[#ffd02f] text-[#111] text-xl px-10 py-5">
-            Get started — it&apos;s free
+            Get started, it&apos;s free
           </Link>
         </div>
       </section>
@@ -155,7 +155,7 @@ export default function Home() {
             De<span className="text-[#2323ff]">Links</span>
           </span>
           <p className="text-[#3d3a33] text-xs font-semibold uppercase tracking-wide">
-            © {new Date().getFullYear()} DeLinks — free URL shortener for everyone
+            © {new Date().getFullYear()} DeLinks, free URL shortener for everyone
           </p>
           <div className="flex gap-6">
             <Link href="/about" className="text-xs font-bold uppercase tracking-wide text-[#111] hover:text-[#2323ff] transition-colors">About</Link>
