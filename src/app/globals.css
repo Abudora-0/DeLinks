@@ -21,6 +21,30 @@ body {
   color: var(--ink);
 }
 
+/* brutalist scrollbar */
+html {
+  scrollbar-color: var(--blue) var(--paper);
+  scrollbar-width: auto;
+}
+::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+::-webkit-scrollbar-track {
+  background: var(--paper);
+  border-left: 2.5px solid var(--ink);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--blue);
+  border: 2.5px solid var(--ink);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--yellow);
+}
+::-webkit-scrollbar-corner {
+  background: var(--paper);
+}
+
 /* brutalist card: thick border + hard offset shadow */
 .brut {
   background: #ffffff;
