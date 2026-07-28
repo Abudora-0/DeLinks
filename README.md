@@ -9,7 +9,7 @@ A clean, minimal URL shortener that lets you create custom short links instantly
 [![Deployed on Netlify](https://img.shields.io/badge/Deployed_on-Netlify-00C7B7?style=flat-square&logo=netlify&logoColor=white)](https://delinks-0.netlify.app)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
 
-**Live demo:** [delinks-0.netlify.app](https://delinks-0.netlify.app)
+**Live demo:** [https://delink.netlify.app/](https://delink.netlify.app/)
 
 ---
 
