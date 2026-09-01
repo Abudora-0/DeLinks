@@ -13,8 +13,6 @@ export default async function Page({ params }) {
         redirect(doc.url)
     }
     else {
-        redirect(`${process.env.NEXT_PUBLIC_HOST}`)
-     }
-
-     return <div>MY Post: {url}</div>
+        redirect("/")
+    }
 }

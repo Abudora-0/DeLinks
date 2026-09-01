@@ -1,5 +1,5 @@
 "use client"
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 
 export default function Shorten() {
@@ -9,6 +9,13 @@ export default function Shorten() {
   const [loading, setLoading] = useState(false)
   const [copied, setCopied] = useState(false)
   const [error, setError] = useState('')
+  // Base URL of whatever domain is serving this page — the short links live
+  // here too, so derive it at runtime instead of a hard-coded env var.
+  const [origin, setOrigin] = useState('')
+
+  useEffect(() => {
+    setOrigin(window.location.origin)
+  }, [])
 
   const handleGenerate = async () => {
     if (!url.trim() || !shorturl.trim()) {
@@ -28,7 +35,7 @@ export default function Shorten() {
       const data = await res.json()
 
       if (data.success) {
-        setGenerated(`${process.env.NEXT_PUBLIC_HOST}${shorturl}`)
+        setGenerated(`${origin}/${shorturl}`)
         setUrl('')
         setShorturl('')
       } else {
@@ -94,7 +101,7 @@ export default function Shorten() {
               </label>
               <div className="flex border-[2.5px] border-[#111] bg-white focus-within:shadow-[4px_4px_0_#2323ff] transition-shadow">
                 <span className="px-3 py-3 bg-[#ffd02f] text-[#111] text-xs border-r-[2.5px] border-[#111] flex items-center whitespace-nowrap font-mono font-bold">
-                  delinks.app/
+                  {origin ? origin.replace(/^https?:\/\//, '') + '/' : 'delinks.app/'}
                 </span>
                 <input
                   type="text"

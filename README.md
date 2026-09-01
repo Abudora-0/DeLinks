@@ -56,7 +56,7 @@ npm install
 
 # Set up environment variables
 cp .env.example .env.local
-# Add your MONGODB_URI and NEXT_PUBLIC_HOST
+# Add your MONGODB_URI
 
 # Start development server
 npm run dev
@@ -70,8 +70,10 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ```env
 MONGODB_URI=your_mongodb_connection_string
-NEXT_PUBLIC_HOST=http://localhost:3000/
 ```
+
+The short-link base URL is taken from the domain serving the app at runtime,
+so no host/URL variable is needed — it works on any domain automatically.
 
 ---
 
