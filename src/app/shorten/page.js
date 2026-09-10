@@ -15,6 +15,9 @@ export default function Shorten() {
 
   useEffect(() => {
     setOrigin(window.location.origin)
+    // Warm the serverless function and its DB connection so the first
+    // "Chop it" does not have to wait out a cold start.
+    fetch('/api/generate', { method: 'GET' }).catch(() => {})
   }, [])
 
   const handleGenerate = async () => {
@@ -26,20 +29,28 @@ export default function Shorten() {
     setError('')
     setGenerated('')
 
-    try {
-      const res = await fetch('/api/generate', {
+    const send = () =>
+      fetch('/api/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url, shorturl }),
       })
-      const data = await res.json()
 
-      if (data.success) {
+    try {
+      let res = await send()
+      // Retry once on a transient backend failure (cold start / DB not ready yet).
+      if (res.status >= 500) {
+        await new Promise(resolve => setTimeout(resolve, 900))
+        res = await send()
+      }
+      const data = await res.json().catch(() => ({}))
+
+      if (res.ok && data.success) {
         setGenerated(`${origin}/${shorturl}`)
         setUrl('')
         setShorturl('')
       } else {
-        setError(data.message || 'Something went wrong.')
+        setError(data.message || 'Something went wrong. Please try again.')
       }
     } catch {
       setError('Failed to connect. Please try again.')

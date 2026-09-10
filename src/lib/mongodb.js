@@ -1,59 +1,43 @@
 // lib/mongodb.js
-
 import { MongoClient } from 'mongodb'
 
 const uri = process.env.MONGODB_URI
-const options = { 
-  useNewUrlParser: true,
+
+if (!uri) {
+  throw new Error('Missing MONGODB_URI environment variable')
 }
 
-let client
-let clientPromise
-
-if (!process.env.MONGODB_URI) {
-  throw new Error('Add Mongo URI to .env.local')
+const options = {
+  // Give up server selection well before the serverless function is killed
+  // (Netlify caps sync functions at ~10s), so a cold start surfaces a real
+  // error we can retry instead of a request that hangs until it is terminated.
+  serverSelectionTimeoutMS: 8000,
+  connectTimeoutMS: 8000,
+  socketTimeoutMS: 20000,
+  // Serverless-friendly pool: keep it small and let idle sockets close.
+  maxPoolSize: 5,
+  minPoolSize: 0,
+  maxIdleTimeMS: 60000,
 }
 
-if (process.env.NODE_ENV === 'development') { 
-  if (!global._mongoClientPromise) {
-    client = new MongoClient(uri, options)
-    global._mongoClientPromise = client.connect()
+// Share one connection across warm invocations by caching the connect()
+// promise on globalThis (survives HMR in dev and module reuse in prod).
+// Never keep a *rejected* promise around: if the first connect fails, the
+// cache is cleared so the next call starts a fresh attempt.
+function connect() {
+  const client = new MongoClient(uri, options)
+  const promise = client.connect().catch((err) => {
+    if (globalThis._mongoClientPromise === promise) {
+      globalThis._mongoClientPromise = undefined
+    }
+    throw err
+  })
+  return promise
+}
+
+export default function getClientPromise() {
+  if (!globalThis._mongoClientPromise) {
+    globalThis._mongoClientPromise = connect()
   }
-  clientPromise = global._mongoClientPromise
-} else {
-  client = new MongoClient(uri, options)
-  clientPromise = client.connect()
+  return globalThis._mongoClientPromise
 }
-
-export default clientPromise
-
-// import { MongoClient } from 'mongodb';
-
-// const uri = process.env.MONGODB_URI;
-// const options = {
-//   // Remove the deprecated option 'useNewUrlParser'
-//   useUnifiedTopology: true, // This option is still recommended
-// };
-
-// let client;
-// let clientPromise;
-
-// if (!uri) {
-//   throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
-// }
-
-// if (process.env.NODE_ENV === 'development') {
-//   // In development, use a global variable to store the client promise
-//   if (!global._mongoClientPromise) {
-//     client = new MongoClient(uri, options);
-//     global._mongoClientPromise = client.connect();
-//   }
-//   clientPromise = global._mongoClientPromise;
-// } else {
-//   // In production, create a new client each time
-//   client = new MongoClient(uri, options);
-//   clientPromise = client.connect();
-// }
-
-// export default clientPromise;
-
